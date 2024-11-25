@@ -1,0 +1,71 @@
+/******* HOMEPAGE STYLING *******/
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.homepage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.homepage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/backgroundimg2.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.hometext {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
+}
+
+.homeh1 {
+  font-size: 150px;
+  font-weight: 600;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+  color: rgba(48, 163, 74, 255);
+}
+
+.homeh2 {
+  font-size: 50px;
+  margin: 10px;
+  color: black;
+  font-weight: 500;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+h3 {
+  font-size: 50px;
+  margin-bottom: 50px;
+  color: black;
+  font-weight: 500;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.startbutton {
+  padding: 40px 70px;
+  font-size: 30px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.startbutton:hover {
+  box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
