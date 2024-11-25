@@ -11,7 +11,6 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-
 const Navbar = () => {
   return (
     <div className="navbar">
@@ -55,5 +54,4 @@ const Navbar = () => {
     </div>
   );
 };
-
 export default Navbar;
