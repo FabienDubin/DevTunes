@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react'
+import { React } from 'react'
 import {
 	Card,
 	CardContent,
@@ -14,12 +14,6 @@ import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { Badge } from '@/components/ui/badge'
 import { Link } from 'react-router-dom'
 
-// ||||---------------------------
-// VVVV   IMPORT THE KEYS FROM SPOTIFY STORED IN .ENV
-let clientId = import.meta.env.VITE_CLIENT_ID
-let yourClientSecret = import.meta.env.VITE_CLIENT_SECRET
-// ---------------------------
-
 // |||||--------------------------------
 // VVVVV   BRING ALL STATES FROM APP.JSX
 const SearchAlbum = ({
@@ -30,32 +24,7 @@ const SearchAlbum = ({
 	artistAlbuns,
 	setArtistAlbuns,
 	access,
-	setAccess,
 }) => {
-	// ||||||-------------------------------||||||
-	// VVVVVV  GET SPOTIFY API TOKEN_ACCESS VVVVVV
-	useEffect(() => {
-		async function apiAccess() {
-			try {
-				let getParams = {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded',
-					},
-					body: `grant_type=client_credentials&client_id=${clientId}&client_secret=${yourClientSecret}`,
-				}
-				const url = 'https://accounts.spotify.com/api/token'
-				const response = await fetch(url, getParams)
-				const data = await response.json()
-				setAccess(data)
-			} catch (error) {
-				console.log(error)
-			}
-		}
-		apiAccess()
-	}, [])
-	// ---------------------------------
-
 	// ||||||||----------------------||||||||||||
 	// VVVVVVVV   SEARCH THE ARTIST  VVVVVVVVVVVV
 	async function queryArtist(token, query) {
