@@ -49,11 +49,19 @@ const AlbumDetail = ({ access }) => {
     getAlbumComments();
   }, [albumId, access]);
 
+  if (!album) {
+    return <div>Loading album information...</div>;
+  }
   return (
     <div>
-      <img src={album.images[1].url} alt={album.name} />
-      <h1>{album.name}</h1>
-      <h2>{album.artists[0].name} </h2>
+      <div className="header-container">
+        <img src={album.images[1].url} alt={album.name} />
+        <div className="header-title">
+          <h1>{album.name}</h1>
+          <h2>{album.artists[0].name} </h2>
+          <h3>Label: {album.label}</h3>
+        </div>
+      </div>
     </div>
   );
 };
