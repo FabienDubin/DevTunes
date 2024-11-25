@@ -55,7 +55,7 @@ const SearchAlbum = ({
 	}
 
 	return (
-		<div className='container'>
+		<div className='md:container mx-auto my-12'>
 			<Input
 				className='my-4'
 				value={querySearch}
@@ -70,7 +70,7 @@ const SearchAlbum = ({
 				}}
 				placeholder='Search Artist and Hit Enter'
 			/>
-			<Card>
+			<Card className='rounded-md'>
 				<CardContent>
 					<Avatar>
 						<AvatarImage
@@ -78,9 +78,13 @@ const SearchAlbum = ({
 							src={artist.image}
 						/>
 					</Avatar>
-					<CardTitle className='text-3xl font-bold m-2'>
-						{artist.name}
-					</CardTitle>
+					{artist.name ? (
+						<CardTitle className='text-3xl font-bold m-2'>
+							{artist.name}
+						</CardTitle>
+					) : (
+						<h1>I WILL APPEAR IN HERE!!!</h1>
+					)}
 					{artist.genres.map((genre, index) => {
 						return (
 							<Badge
@@ -93,30 +97,45 @@ const SearchAlbum = ({
 						)
 					})}
 				</CardContent>
-
+				{/* |||||---------------------- */}
+				{/* VVVVV ALBUM CARDS */}
 				<CardContent className='flex flex-wrap'>
+					{/* |||||---------------------- */}
+					{/* VVVVV  ARTIST ALBUM CARD */}
 					{artistAlbuns &&
 						artistAlbuns.map((album) => {
 							return (
 								<Card
 									key={album.id}
-									className='flex justify-between w-48 flex-col my-2 mx-auto text-center'
+									className='rounded-md flex justify-between w-48 flex-col my-2 mx-auto text-center'
 								>
-									<Avatar>
-										<AvatarImage
-											className='rounded-full w-20 mx-auto mt-2'
-											src={album.images[0].url}
-										/>
-									</Avatar>
-									<h4>{album.name}</h4>
-									<p>Total Tracks: {album.total_tracks}</p>
-									<Badge className='m-2' variant='outline'>
+									<div className='flex'>
+										<Avatar>
+											<AvatarImage
+												className='shadow-lg w-20 ml-2 smb-2 mt-3'
+												src={album.images[0].url}
+											/>
+										</Avatar>
+										<div className='ml-2 text-sm'>
+											<h4 className='ml-2 my-2 text-left'>
+												{album.name}
+											</h4>
+											<p className='ml-2 my-2 text-left'>
+												Tracks: {album.total_tracks}
+											</p>
+										</div>
+									</div>
+									<Badge
+										className='rounded-sm bg-black m-2'
+										variant='default'
+									>
 										Launched: {album.release_date}
 									</Badge>
-									<Button asChild className='mx-2 mb-2'>
-										<Link
-											to={`/${artist.name}/${album.name}/${album.id}/tracks`}
-										>
+									<Button
+										asChild
+										className='rounded-sm mx-2 mb-2'
+									>
+										<Link to={`/albums/${album.id}`}>
 											Go To Album
 										</Link>
 									</Button>
