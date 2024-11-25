@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
 import Tests from "./pages/tests";
 import Footer from "./components/Footer";
-import AddAlbum from "./pages/AddAlbum";
+import SearchAlbum from "./pages/SearchAlbum";
 import AlbumDetail from "./pages/AlbumDetail";
 import MyAlbums from "./pages/MyAlbums";
 import NotFound from "./pages/NotFound";
@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/tests" element={<Tests />} />
-        <Route path="/add-album" element={<AddAlbum />} />
+        <Route path="/search-album" element={<SearchAlbum />} />
         <Route path="/my-albums" element={<MyAlbums />} />
         <Route path="/album/:albumId" element={<AlbumDetail />} />
         <Route path="*" element={<NotFound />} />
