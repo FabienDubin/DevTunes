@@ -116,7 +116,7 @@ const Tests = () => {
           })}
       </div>
 
-      <h1>Fab's Collection</h1>
+      {/* <h1>Fab's Collection</h1>
       <div className="Album-containers">
         {records &&
           records.map((record, id) => {
@@ -136,7 +136,7 @@ const Tests = () => {
               </Card>
             );
           })}
-      </div>
+      </div> */}
     </div>
   );
 };
