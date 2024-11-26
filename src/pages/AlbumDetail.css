@@ -3,6 +3,82 @@ body {
   margin: 0;
 }
 
-h1 {
+.album-detail .header-container {
+  margin: 10px 50px;
+  padding: 20px 0;
+  display: flex;
+}
+
+.album-detail .header-container img {
+  width: 30%;
+}
+
+.album-detail h1 {
   font-size: 4em;
+  font-weight: 700;
+}
+.album-detail h2 {
+  font-size: 2em;
+  font-weight: 500;
+}
+
+.album-detail h3 {
+  font-size: 1.5em;
+  font-weight: 600;
+  text-shadow: none;
+  margin-bottom: 10px;
+}
+
+.album-detail .header-title {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.album-detail h4 {
+  font-size: 1em;
+  margin: 10px;
+}
+.album-detail .header-container .btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.album-detail .header-container .btn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.album-detail .tabs {
+  margin: 0 50px;
+}
+
+.album-detail .comment-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: flex-end;
+}
+
+.album-detail .text-area {
+  width: 85%;
+}
+
+.album-detail .comment-box .btn {
+  width: 13%;
+}
+
+.album-detail .user-name {
+  font-size: 20px;
+  margin-left: 10px;
+}
+.album-detail .creation-date {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.album-detail .comment-card {
+  margin-bottom: 15px;
+  width: 85%;
 }
