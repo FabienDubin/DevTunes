@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import { Card, CardContent, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
-import { Badge } from '@/components/ui/badge'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "../pages/MyAlbums.css";
 
 const MyAlbums = ({ user }) => {
-	const [userAlbums, setUserAlbums] = useState([])
+  const [userAlbums, setUserAlbums] = useState([]);
 
-	const userID = 3
+  const userId = 3;
 
-	let albums = []
-	useEffect(() => {
-		//   if (access && user) {
-		//     fetchUserAlbums();
-		//   }
-		// }, [access, user]);
+  let albums = [];
+  useEffect(() => {
+    async function getCollection() {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5005/users/${userId}`
+        );
+        setUserAlbums(data.collection);
+        console.log(data.collection);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getCollection();
+  }, []);
 
-		async function getCollection() {
-			try {
-				const { data } = await axios.get(
-					`http://localhost:5005/users/${userID}`
-				)
-				setUserAlbums(data.collection)
-				console.log(data.collection)
-			} catch (error) {
-				console.log(error)
-			}
-		}
-		getCollection()
-	}, [])
+  return (
+    <div>
+      <div className="myalbumspage">
+        <p>No albums found in your collection.</p>
+      </div>
+      <div>
+        {/* <h1>{userId.name}'s Collection</h1> */}
 
-	return (
-		<div>
-			{/* <h1>{user.name}'s Collection</h1> */}
-			{userAlbums &&
-				userAlbums.map((album) => {
-					return (
-						<div>
-							<h1 key={album.id}>{album.name}</h1>
-						</div>
-					)
-				})}
-
-			{/* {userAlbums.length === 0 ? (
+        {userAlbums &&
+          userAlbums.map((album) => {
+            return (
+              <div>
+                <h1 key={album.id}>{album.name}</h1>
+              </div>
+            );
+          })}
+        {/* {userAlbums.length === 0 ? (
 				<p>No albums found in your collection.</p>
 			) : (
 				<div>
@@ -73,8 +73,9 @@ const MyAlbums = ({ user }) => {
           ))}
 				</div>
 			)} */}
-		</div>
-	)
-}
+      </div>
+    </div>
+  );
+};
 
-export default MyAlbums
+export default MyAlbums;
