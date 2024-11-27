@@ -20,3 +20,17 @@
 .navbar img {
   height: 70px;
 }
+
+/* ------ Footer ----- */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5vh;
+}
+
+.footer img {
+  width: 30px;
+  margin-right: 10px;
+}

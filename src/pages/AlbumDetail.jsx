@@ -102,25 +102,6 @@ const AlbumDetail = ({ access }) => {
       }
     }
     getUsers();
-
-    // JSON Server to check if the album is in the collection
-    async function checkIfInCOllection() {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:5005/users/${currentUser}`
-        );
-        const userCollection = data.collection || [];
-        const albumExists = userCollection.some(
-          (album) => album.id === albumId
-        );
-        setIsInCollection(albumExists);
-      } catch (error) {
-        console.log("error in chekIfInCollection", error);
-      }
-    }
-    if (album) {
-      checkIfInCOllection();
-    }
   }, [albumId, access]);
 
   //FUNCTIONS
@@ -137,6 +118,23 @@ const AlbumDetail = ({ access }) => {
   //   if (users) {
   //     console.log("user found", getUsersbyId(3));
   //   }
+
+  // JSON Server to check if the album is in the collection
+  async function checkIfInCOllection() {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:5005/users/${currentUser}`
+      );
+      const userCollection = data.collection || [];
+      const albumExists = userCollection.some((album) => album.id === albumId);
+      setIsInCollection(albumExists);
+    } catch (error) {
+      console.log("error in chekIfInCollection", error);
+    }
+  }
+  if (album) {
+    checkIfInCOllection();
+  }
 
   // JSON Server to add album to collection
   async function addAlbumToCollection() {
