@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../pages/MyAlbums.css";
 
-const MyAlbums = ({ user }) => {
+const MyAlbums = ({ user, artist }) => {
   const [userAlbums, setUserAlbums] = useState([]);
 
   const userId = 3;
@@ -31,48 +31,39 @@ const MyAlbums = ({ user }) => {
   return (
     <div>
       <div className="myalbumspage">
-        <p>No albums found in your collection.</p>
+        <h1 className="usercollectiontitle">{userId}'s Collection</h1>
       </div>
-      <div>
-        {/* <h1>{userId.name}'s Collection</h1> */}
-
-        {userAlbums &&
-          userAlbums.map((album) => {
-            return (
-              <div>
-                <h1 key={album.id}>{album.name}</h1>
-              </div>
-            );
-          })}
-        {/* {userAlbums.length === 0 ? (
-				<p>No albums found in your collection.</p>
-			) : (
-				<div>
-					{userAlbums.map((album) => (
-            <h1></h1>
-            <Card key={album.id}>
-              <CardContent>
-                <div>
-                  <Avatar>
-                    <AvatarImage src={album.images[0].url} />
-                  </Avatar>
-                  <CardTitle>{album.artists[0].name}</CardTitle>
-                  <div>
-                    <h4>{album.name}</h4>
-                    <p>Tracks: {album.total_tracks}</p>
+      <div className="cardpage">
+        <CardContent className="cardcontent">
+          {userAlbums &&
+            userAlbums.map((album) => {
+              return (
+                <Card key={album.id} className="albumcard">
+                  <div className="albumcard-container">
+                    <Avatar>
+                      <AvatarImage
+                        className="avatarimage"
+                        src={album.images[0].url}
+                      />
+                    </Avatar>
+                    <div className="ml-2 text-sm">
+                      <h4 className="albumname">{album.name}</h4>
+                      <p className="albumtrack">Tracks: {album.total_tracks}</p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-              <Badge variant="default">
-                Launched: {album.release_date}
-              </Badge>
-              <Button asChild>
-                <Link to={`/album/${album.id}`}>Go To Album</Link>
-              </Button>
-            </Card>
-          ))}
-				</div>
-			)} */}
+                  <Badge
+                    className="badge-no-pointer rounded-sm bg-black m-2"
+                    variant="default"
+                  >
+                    Launched: {album.release_date}
+                  </Badge>
+                  <Button asChild className="rounded-sm mx-2 mb-2">
+                    <Link to={`/album/${album.id}`}>Go To Album</Link>
+                  </Button>
+                </Card>
+              );
+            })}
+        </CardContent>
       </div>
     </div>
   );

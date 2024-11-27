@@ -1,5 +1,77 @@
 .myalbumspage {
-  height: 85vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.usercollectiontitle {
+  font-size: 50px;
+  font-weight: 600;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  color: rgba(48, 163, 74, 255);
+}
+
+.cardpage {
+  height: 70vh;
+}
+
+.cardcontent {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+}
+
+.albumcard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.albumcard-container {
+  display: flex;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatarimage {
+  width: 150px;
+  height: 150px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.albumname {
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.albumtrack {
+  margin-top: 20px;
+}
+
+.badge-no-pointer {
+  cursor: default;
+}
+
+.badge-no-pointer:hover {
+  background-color: black;
+  color: white;
 }
