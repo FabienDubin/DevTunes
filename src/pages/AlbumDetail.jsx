@@ -31,7 +31,13 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { v4 as uuidv4 } from "uuid";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Headphones, Send, CirclePlus, CircleMinus } from "lucide-react";
+import {
+  Headphones,
+  Send,
+  CirclePlus,
+  CircleMinus,
+  CircleX,
+} from "lucide-react";
 import dateFormat, { masks } from "dateformat";
 const now = new Date();
 
@@ -52,7 +58,6 @@ const AlbumDetail = ({ access, navUser }) => {
 
   //To be changed when the useContext is set (getting only id, name and img)
   const currentUser = navUser;
-  console.log(currentUser);
 
   //API CALLS
   useEffect(() => {
@@ -202,6 +207,28 @@ const AlbumDetail = ({ access, navUser }) => {
       }
     }
   }
+
+  //handle delete a comment
+  async function handleDeleteComment(commentId) {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:5005/comments/${commentId}`
+      );
+      console.log("comment deleted");
+    } catch (error) {
+      console.log("delete comment", error);
+    }
+    setComments(
+      comments.filter((comment) => {
+        if (comment.id !== commentId) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+  }
+
   //////////------DETAIL PAGE--------/////
 
   if (!album) {
@@ -298,29 +325,41 @@ const AlbumDetail = ({ access, navUser }) => {
                 users &&
                 comments.map((comment) => {
                   return (
-                    <Card className="comment-card" key={comment.id}>
-                      <CardHeader>
-                        <CardTitle className="flex items-center">
-                          <Avatar>
-                            <AvatarImage
-                              className="avatar"
-                              src={comment.userImg}
-                            />
-                            <AvatarFallback>CN</AvatarFallback>
-                          </Avatar>
-                          <div className="user-name">
-                            {comment.userName}
-                            <span className="creation-date">
-                              @ {comment.created}
-                            </span>
-                          </div>
-                        </CardTitle>
-                        <CardDescription></CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p>{comment.comment}</p>
-                      </CardContent>
-                    </Card>
+                    <div key={comment.id}>
+                      <Card className="comment-card">
+                        <CardHeader>
+                          <CardTitle className="flex items-center justify-between ">
+                            <div className="flex items-center">
+                              <Avatar>
+                                <AvatarImage
+                                  className="avatar"
+                                  src={comment.userImg}
+                                />
+                                <AvatarFallback>CN</AvatarFallback>
+                              </Avatar>
+                              <div className="user-name">
+                                {comment.userName}
+                                <span className="creation-date">
+                                  @ {comment.created}
+                                </span>
+                              </div>
+                            </div>
+                            <Button
+                              variant="destructive"
+                              onClick={() => {
+                                handleDeleteComment(comment.id);
+                              }}
+                            >
+                              <CircleX />
+                            </Button>
+                          </CardTitle>
+                          <CardDescription></CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <p>{comment.comment}</p>
+                        </CardContent>
+                      </Card>
+                    </div>
                   );
                 })}
             </div>
