@@ -66,6 +66,9 @@ function App() {
         const response = await fetch(url, getParams);
         const data = await response.json();
         setAccess(data);
+        const responseUser = await fetch("http://localhost:5005/users/1");
+        const dataUser = await responseUser.json();
+        setNavUser(dataUser);
       } catch (error) {
         console.log(error);
       }

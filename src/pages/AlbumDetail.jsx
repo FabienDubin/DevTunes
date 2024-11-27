@@ -52,6 +52,7 @@ const AlbumDetail = ({ access, navUser }) => {
 
   //To be changed when the useContext is set (getting only id, name and img)
   const currentUser = navUser;
+  console.log(currentUser);
 
   //API CALLS
   useEffect(() => {
@@ -158,7 +159,7 @@ const AlbumDetail = ({ access, navUser }) => {
   async function removeAlbumFromCollection() {
     try {
       const { data } = await axios.get(
-        `http://localhost:5005/users/${currentUser}`
+        `http://localhost:5005/users/${currentUser.id}`
       );
       const userCollection = data.collection || [];
 
