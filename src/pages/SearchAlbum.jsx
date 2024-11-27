@@ -70,7 +70,7 @@ const SearchAlbum = ({
               setQuerySearch("");
             }
           }}
-          placeholder="Search Artist and Hit Enter"
+          placeholder="Search for Your Favorite Artist and Press Enter"
         />
         <Card className="rounded-md">
           <CardContent>
@@ -85,7 +85,9 @@ const SearchAlbum = ({
                 {artist.name}
               </CardTitle>
             ) : (
-              <h1>I WILL APPEAR IN HERE!!!</h1>
+              <div>
+                <h1>Your artist will be displayed here! </h1>
+              </div>
             )}
             {artist.genres.map((genre, index) => {
               return (

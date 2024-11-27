@@ -25,6 +25,10 @@
 
 .footer {
   display: flex;
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  background-color: white;
   justify-content: center;
   align-items: center;
   margin-top: auto;
