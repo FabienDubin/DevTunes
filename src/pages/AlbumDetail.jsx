@@ -300,9 +300,6 @@ const AlbumDetail = ({ access }) => {
               {comments &&
                 users &&
                 comments.map((comment) => {
-                  // console.log("before getting user id", comment.userId);
-                  // const user = getUsersbyId(comment.userId);
-                  // console.log("user found in comments", user);
                   return (
                     <Card className="comment-card" key={comment.id}>
                       <CardHeader>
