@@ -236,13 +236,15 @@ const AlbumDetail = ({ access, navUser }) => {
   }
   return (
     <div className="album-detail">
-      {/* Album presentation */}
+      {/* -----------------------Album presentation---------------------*/}
       <div className="header-container">
         <img src={album.images[1].url} alt={album.name} />
         <div className="header-title">
           <h1>{album.name}</h1>
           <h2>{album.artists[0].name} </h2>
           <h5>Label: {album.label}</h5>
+          {/* ------------------------------------------------------ */}
+          {/* -----------------------Link to Spotify---------------------*/}
           <div className="btn-container">
             <Link
               to={album.external_urls.spotify}
@@ -254,6 +256,8 @@ const AlbumDetail = ({ access, navUser }) => {
                 Listen on Spotify
               </Button>
             </Link>
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Add the albul to collection btn---------------------*/}
             <Button
               className="btn"
               variant={isInCollection ? "secondary" : ""}
@@ -271,13 +275,19 @@ const AlbumDetail = ({ access, navUser }) => {
           </div>
         </div>
       </div>
+      {/* --------------------------------------------------------------------------- */}
+      {/* -----------------------Tab container---------------------*/}
       <div className="tabs">
         <Tabs defaultValue="tracks" className="w-full">
           <TabsList>
             <TabsTrigger value="tracks">Tracklist</TabsTrigger>
             <TabsTrigger value="comments">Comments</TabsTrigger>
           </TabsList>
+          {/* --------------------------------------------------------------------------- */}
+          {/* -----------------------Tracks Table TAB---------------------*/}
           <TabsContent value="tracks">
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Tracks Table---------------------*/}
             <Table>
               <TableHeader>
                 <TableRow>
@@ -304,8 +314,12 @@ const AlbumDetail = ({ access, navUser }) => {
                 ))}
               </TableBody>
             </Table>
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Comments Tab---------------------*/}
           </TabsContent>
           <TabsContent value="comments">
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Comment Input container---------------------*/}
             <h4>Add a comment...</h4>
             <div className="comment-box">
               <div className="text-area">
@@ -320,7 +334,10 @@ const AlbumDetail = ({ access, navUser }) => {
                 Send
               </Button>
             </div>
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------All comments container---------------------*/}
             <div className="all-comments">
+              {/* -----------------------map over the array of comments---------------------*/}
               {comments &&
                 users &&
                 comments.map((comment) => {
@@ -329,6 +346,8 @@ const AlbumDetail = ({ access, navUser }) => {
                       <Card className="comment-card">
                         <CardHeader>
                           <CardTitle className="flex items-center justify-between ">
+                            {/* --------------------------------------------------------------------------- */}
+                            {/* -----------------------avatar, name, date and delete btn inline---------------------*/}
                             <div className="flex items-center">
                               <Avatar>
                                 <AvatarImage
@@ -344,20 +363,25 @@ const AlbumDetail = ({ access, navUser }) => {
                                 </span>
                               </div>
                             </div>
-                            <Button
-                              variant="destructive"
-                              onClick={() => {
-                                handleDeleteComment(comment.id);
-                              }}
-                            >
-                              <CircleX />
-                            </Button>
+                            <div>
+                              {/* <<<<<<<<<< @Bruno-Franco : You can add the Dialog here for edit(https://ui.shadcn.com/docs/components/dialog)----------- */}
+                              <Button
+                                variant="destructive"
+                                onClick={() => {
+                                  handleDeleteComment(comment.id);
+                                }}
+                              >
+                                <CircleX />
+                              </Button>
+                            </div>
                           </CardTitle>
-                          <CardDescription></CardDescription>
                         </CardHeader>
+                        {/* --------------------------------------------------------------------------- */}
+                        {/* -----------------------text comment--------------------*/}
                         <CardContent>
                           <p>{comment.comment}</p>
                         </CardContent>
+                        {/* --------------------------------------------------------------------------- */}
                       </Card>
                     </div>
                   );
