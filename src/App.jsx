@@ -10,6 +10,7 @@ import SearchAlbum from "./pages/SearchAlbum";
 import AlbumDetail from "./pages/AlbumDetail";
 import MyAlbums from "./pages/MyAlbums";
 import NotFound from "./pages/NotFound";
+import { ThemeProvider } from "@/components/Theme-provider";
 
 // ||||---------------------------
 // VVVV   IMPORT THE KEYS FROM SPOTIFY STORED IN .ENV
@@ -78,37 +79,39 @@ function App() {
   // ---------------------------------
   return (
     <>
-      <Navbar handleNavUserChange={handleNavUserChange} />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/tests" element={<Tests />} />
-        <Route
-          path="/search-album"
-          element={
-            <SearchAlbum
-              artist={artist}
-              setArtist={setArtist}
-              querySearch={querySearch}
-              setQuerySearch={setQuerySearch}
-              artistAlbuns={artistAlbuns}
-              setArtistAlbuns={setArtistAlbuns}
-              access={access}
-              setAccess={setAccess}
-            />
-          }
-        />
-        <Route
-          path="/my-albums"
-          element={<MyAlbums access={access} navUser={navUser} />}
-        />
-        <Route
-          path="/album/:albumId"
-          element={<AlbumDetail access={access} navUser={navUser} />}
-        />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/tests" element={<Tests />} />
-      </Routes>
-      <Footer />
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Navbar handleNavUserChange={handleNavUserChange} />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/tests" element={<Tests />} />
+          <Route
+            path="/search-album"
+            element={
+              <SearchAlbum
+                artist={artist}
+                setArtist={setArtist}
+                querySearch={querySearch}
+                setQuerySearch={setQuerySearch}
+                artistAlbuns={artistAlbuns}
+                setArtistAlbuns={setArtistAlbuns}
+                access={access}
+                setAccess={setAccess}
+              />
+            }
+          />
+          <Route
+            path="/my-albums"
+            element={<MyAlbums access={access} navUser={navUser} />}
+          />
+          <Route
+            path="/album/:albumId"
+            element={<AlbumDetail access={access} navUser={navUser} />}
+          />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/tests" element={<Tests />} />
+        </Routes>
+        <Footer />
+      </ThemeProvider>
     </>
   );
 }
