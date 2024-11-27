@@ -50,8 +50,12 @@ const AlbumDetail = ({ access }) => {
   //Datas for new comment
   const [newComment, setNewComment] = useState("");
 
-  //To be changed when the useContext is set
-  const currentUser = 3;
+  //To be changed when the useContext is set (getting only id, name and img)
+  const currentUser = {
+    id: 3,
+    name: "Fab",
+    image: "https://xsgames.co/randomusers/assets/avatars/pixel/9.jpg",
+  };
 
   //API CALLS
   useEffect(() => {
@@ -68,7 +72,7 @@ const AlbumDetail = ({ access }) => {
           }
         );
         setAlbum(data);
-        // console.log("got album datas", data);
+        console.log("got album datas", data);
       } catch (error) {
         console.log(error);
       }
@@ -123,7 +127,7 @@ const AlbumDetail = ({ access }) => {
   async function checkIfInCOllection() {
     try {
       const { data } = await axios.get(
-        `http://localhost:5005/users/${currentUser}`
+        `http://localhost:5005/users/${currentUser.id}`
       );
       const userCollection = data.collection || [];
       const albumExists = userCollection.some((album) => album.id === albumId);
@@ -140,12 +144,12 @@ const AlbumDetail = ({ access }) => {
   async function addAlbumToCollection() {
     try {
       const { data } = await axios.get(
-        `http://localhost:5005/users/${currentUser}`
+        `http://localhost:5005/users/${currentUser.id}`
       );
       const userCollection = data.collection || [];
 
       //Add album to the collection
-      await axios.patch(`http://localhost:5005/users/${currentUser}`, {
+      await axios.patch(`http://localhost:5005/users/${currentUser.id}`, {
         collection: [album, ...userCollection],
       });
       setIsInCollection(true);
@@ -166,7 +170,7 @@ const AlbumDetail = ({ access }) => {
       const updatedCollection = userCollection.filter(
         (item) => item.id !== albumId
       );
-      await axios.patch(`http://localhost:5005/users/${currentUser}`, {
+      await axios.patch(`http://localhost:5005/users/${currentUser.id}`, {
         collection: updatedCollection,
       });
 
@@ -183,7 +187,9 @@ const AlbumDetail = ({ access }) => {
       const newCommentData = {
         id: uuidv4(),
         comment: newComment,
-        userId: currentUser,
+        userId: currentUser.id,
+        userName: currentUser.name,
+        userImg: currentUser.image,
         created: dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT"),
         albumId: albumId,
       };
@@ -221,7 +227,7 @@ const AlbumDetail = ({ access }) => {
             >
               <Button className="btn">
                 <Headphones />
-                See on Spotify
+                Listen on Spotify
               </Button>
             </Link>
             <Button
@@ -302,23 +308,18 @@ const AlbumDetail = ({ access }) => {
                       <CardHeader>
                         <CardTitle className="flex items-center">
                           <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarImage
+                              className="avatar"
+                              src={comment.userImg}
+                            />
                             <AvatarFallback>CN</AvatarFallback>
                           </Avatar>
                           <div className="user-name">
-                            USERname {comment.userId}
+                            {comment.userName}
                             <span className="creation-date">
                               @ {comment.created}
                             </span>
                           </div>
-                          {/* <Avatar>
-                          <AvatarImage src={user.name} />
-                          <AvatarFallback>{user.name}</AvatarFallback>
-                          </Avatar> */}
-                          {/* Test */}
-                          {/* {user.name || "Anonymous"} */}
-                          {/* {getUsersbyId(comment.id).name || "Anonymous"} */}
-                          {/* {test || "Anonymous"} */}
                         </CardTitle>
                         <CardDescription></CardDescription>
                       </CardHeader>

@@ -3,6 +3,9 @@ body {
   margin: 0;
 }
 
+.album-detail {
+  min-height: 85vh;
+}
 .album-detail .header-container {
   margin: 10px 50px;
   padding: 20px 0;
@@ -76,9 +79,14 @@ body {
 .album-detail .creation-date {
   font-size: 15px;
   font-weight: 300;
+  margin-left: 15px;
 }
 
 .album-detail .comment-card {
   margin-bottom: 15px;
   width: 85%;
+}
+.album-detail .avatar {
+  border: 1px solid grey;
+  border-radius: 100%;
 }
