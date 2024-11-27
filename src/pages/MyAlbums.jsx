@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../pages/MyAlbums.css";
 
-const MyAlbums = ({ user, artist }) => {
+const MyAlbums = ({ navUser, artist }) => {
   const [userAlbums, setUserAlbums] = useState([]);
 
-  const userId = 3;
+  const userId = navUser.id;
+  console.log(navUser.id);
 
   let albums = [];
   useEffect(() => {
@@ -26,12 +27,21 @@ const MyAlbums = ({ user, artist }) => {
       }
     }
     getCollection();
-  }, []);
+  }, [userId]);
 
-  return (
-    <div>
+  if (!navUser) {
+    return (
       <div className="myalbumspage">
-        <h1 className="usercollectiontitle">{userId}'s Collection</h1>
+        <h1 className="text-center usercollectiontitle">
+          Please select a profile first!
+        </h1>
+      </div>
+    );
+  }
+  return (
+    <div className="myalbum-container">
+      <div className="myalbumspage">
+        <h1 className="usercollectiontitle">{navUser.name}'s Collection</h1>
       </div>
       <div className="cardpage">
         <CardContent className="cardcontent">

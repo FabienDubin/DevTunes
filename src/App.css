@@ -27,7 +27,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: auto;
   min-height: 5vh;
+  padding: 20px;
+  text-align: center;
 }
 
 .footer img {

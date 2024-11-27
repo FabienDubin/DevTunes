@@ -35,7 +35,7 @@ import { Headphones, Send, CirclePlus, CircleMinus } from "lucide-react";
 import dateFormat, { masks } from "dateformat";
 const now = new Date();
 
-const AlbumDetail = ({ access }) => {
+const AlbumDetail = ({ access, navUser }) => {
   // CONSTS
   //Getting album ID from the previous page
   const { albumId } = useParams();
@@ -51,11 +51,7 @@ const AlbumDetail = ({ access }) => {
   const [newComment, setNewComment] = useState("");
 
   //To be changed when the useContext is set (getting only id, name and img)
-  const currentUser = {
-    id: 3,
-    name: "Fab",
-    image: "https://xsgames.co/randomusers/assets/avatars/pixel/9.jpg",
-  };
+  const currentUser = navUser;
 
   //API CALLS
   useEffect(() => {

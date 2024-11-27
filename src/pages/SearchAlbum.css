@@ -1,3 +1,7 @@
+.search-container {
+  height: 80vh;
+}
+
 .launchbagde {
   cursor: default;
   background-color: black;

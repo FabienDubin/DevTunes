@@ -11,7 +11,7 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-const Navbar = () => {
+const Navbar = ({ handleNavUserChange }) => {
   return (
     <div className="navbar">
       <Link to="/">
@@ -38,13 +38,13 @@ const Navbar = () => {
             <MenubarTrigger>Profiles</MenubarTrigger>
             <MenubarContent>
               Choose your profile
-              <MenubarItem>
+              <MenubarItem onClick={handleNavUserChange}>
                 Bruno <MenubarShortcut>⌘B</MenubarShortcut>
               </MenubarItem>
-              <MenubarItem>
-                Emi <MenubarShortcut>⌘E</MenubarShortcut>
+              <MenubarItem onClick={handleNavUserChange}>
+                Emilia <MenubarShortcut>⌘E</MenubarShortcut>
               </MenubarItem>
-              <MenubarItem>
+              <MenubarItem onClick={handleNavUserChange}>
                 Fab <MenubarShortcut>⌘F</MenubarShortcut>
               </MenubarItem>
             </MenubarContent>
