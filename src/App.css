@@ -17,6 +17,13 @@
   box-shadow: 0px -10px 30px rgba(77, 76, 76, 0.5);
 }
 
+.navbar .menubar {
+  display: flex;
+}
+
+.navbar .menubar .theme-prov {
+  margin-left: 10px;
+}
 .navbar img {
   height: 70px;
 }
