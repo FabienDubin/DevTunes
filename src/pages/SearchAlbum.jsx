@@ -13,6 +13,7 @@ import { Input } from "../components/ui/input";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import "../pages/SearchAlbum.css";
 
 // |||||--------------------------------
 // VVVVV   BRING ALL STATES FROM APP.JSX
@@ -119,7 +120,10 @@ const SearchAlbum = ({
                       </p>
                     </div>
                   </div>
-                  <Badge className="rounded-sm bg-black m-2" variant="default">
+                  <Badge
+                    className="launchbagde badge-no-pointer"
+                    variant="default"
+                  >
                     Launched: {album.release_date}
                   </Badge>
                   <Button asChild className="rounded-sm mx-2 mb-2">
