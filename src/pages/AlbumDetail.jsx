@@ -120,7 +120,7 @@ const AlbumDetail = ({ access, navUser }) => {
       }
     }
     getUsers();
-  }, [albumId, access]);
+  }, [albumId, access, currentUser]);
 
   //FUNCTIONS
   //converting duration from millisec to minutes
@@ -250,10 +250,13 @@ const AlbumDetail = ({ access, navUser }) => {
       created: comment.created,
       albumId: comment.albumId,
       userId: comment.userId,
+      userName: comment.userName,
+      userImg: comment.userImg,
     };
-
+    console.log("-----------------", currentUser);
     let updateArray = comments.map((coms) => {
       if (coms.id == update.id) {
+        console.log("update", update, "then", coms);
         return update;
       } else {
         return coms;
