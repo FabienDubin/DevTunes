@@ -56,7 +56,7 @@ const SearchAlbum = ({
   }
 
   return (
-    <div className="search-container">
+    <div id="serch-album" className="search-container">
       <div className="md:container mx-auto my-12">
         <Input
           className="my-4"

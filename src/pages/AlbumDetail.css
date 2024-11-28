@@ -2,9 +2,11 @@ body {
   padding: 0;
   margin: 0;
 }
-
+#album-detail-id {
+  height: 85vh;
+  overflow: scroll;
+}
 .album-detail {
-  min-height: 85vh;
 }
 .album-detail .header-container {
   margin: 10px 50px;
