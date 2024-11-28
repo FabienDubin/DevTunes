@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "../pages/AlbumDetail.css";
+import "./AlbumDetail.css";
 import {
   Table,
   TableBody,

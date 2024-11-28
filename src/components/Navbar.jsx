@@ -3,7 +3,7 @@ import devtuneslogo from "../assets/logo.png";
 import devtuneslogodark from "../assets/logoDark.png";
 import { Link } from "react-router-dom";
 import { ModeToggle } from "./mode-toggle";
-import { useTheme } from "./theme-provider";
+import { useTheme } from "./ThemeProvider";
 
 //ShadCN
 import {

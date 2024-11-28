@@ -10,7 +10,7 @@ import SearchAlbum from "./pages/SearchAlbum";
 import AlbumDetail from "./pages/AlbumDetail";
 import MyAlbums from "./pages/MyAlbums";
 import NotFound from "./pages/NotFound";
-import { ThemeProvider } from "@/components/Theme-provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { API_URL, clientId, yourClientSecret } from "./config";
 // ||||---------------------------
 // VVVV   IMPORT THE KEYS FROM SPOTIFY STORED IN .ENV
