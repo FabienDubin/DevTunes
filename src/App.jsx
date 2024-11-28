@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Homepage from "./pages/Homepage";
-import Tests from "./pages/tests";
+// import Tests from "./pages/tests";
 import Footer from "./components/Footer";
 import SearchAlbum from "./pages/SearchAlbum";
 import AlbumDetail from "./pages/AlbumDetail";
@@ -84,7 +84,7 @@ function App() {
         <Navbar handleNavUserChange={handleNavUserChange} />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/tests" element={<Tests />} />
+          {/* <Route path="/tests" element={<Tests />} /> */}
           <Route
             path="/search-album"
             element={
