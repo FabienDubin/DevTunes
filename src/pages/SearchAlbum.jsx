@@ -13,7 +13,7 @@ import { Input } from "../components/ui/input";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import "../pages/SearchAlbum.css";
+import "./SearchAlbum.css";
 
 // |||||--------------------------------
 // VVVVV   BRING ALL STATES FROM APP.JSX

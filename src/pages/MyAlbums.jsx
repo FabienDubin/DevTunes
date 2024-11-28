@@ -5,7 +5,7 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../pages/MyAlbums.css";
+import "./MyAlbums.css";
 import { API_URL } from "@/config";
 
 const MyAlbums = ({ navUser, artist }) => {
