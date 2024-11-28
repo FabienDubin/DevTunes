@@ -109,7 +109,7 @@ function App() {
             element={<AlbumDetail access={access} navUser={navUser} />}
           />
           <Route path="*" element={<NotFound />} />
-          <Route path="/tests" element={<Tests />} />
+          {/* <Route path="/tests" element={<Tests />} /> */}
         </Routes>
         <Footer />
       </ThemeProvider>
