@@ -262,6 +262,7 @@ const AlbumDetail = ({ access, navUser }) => {
 			albumId: comment.albumId,
 			userId: comment.userId,
 		}
+
 		let updateArray = comments.map((coms) => {
 			if (coms.id == update.id) {
 				return update
