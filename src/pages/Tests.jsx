@@ -71,7 +71,7 @@ const Tests = () => {
       <Button>Button</Button>
       <Button variant="secondary">Bouton 2</Button>
 
-      <Drawer>
+      {/* <Drawer>
         <DrawerTrigger>Open</DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
@@ -85,7 +85,7 @@ const Tests = () => {
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
 
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">

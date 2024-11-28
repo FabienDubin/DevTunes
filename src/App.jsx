@@ -11,11 +11,11 @@ import AlbumDetail from "./pages/AlbumDetail";
 import MyAlbums from "./pages/MyAlbums";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "@/components/Theme-provider";
-import { API_URL } from "./config";
+import { API_URL, clientId, yourClientSecret } from "./config";
 // ||||---------------------------
 // VVVV   IMPORT THE KEYS FROM SPOTIFY STORED IN .ENV
-let clientId = import.meta.env.VITE_CLIENT_ID;
-let yourClientSecret = import.meta.env.VITE_CLIENT_SECRET;
+// let clientId = import.meta.env.VITE_CLIENT_ID;
+// let yourClientSecret = import.meta.env.VITE_CLIENT_SECRET;
 
 function App() {
   const [artist, setArtist] = useState({
