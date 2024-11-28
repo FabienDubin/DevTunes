@@ -3,7 +3,7 @@ import githublogo from "../assets/githubimg.png";
 import githublogoDark from "../assets/github-mark-white.png";
 import "../App.css";
 import { Link } from "react-router-dom";
-import { useTheme } from "./theme-provider";
+import { useTheme } from "./ThemeProvider";
 
 const Footer = () => {
   const { theme } = useTheme();
