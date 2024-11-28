@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../pages/AlbumDetail.css";
 import {
@@ -13,12 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+
 import { Textarea } from "@/components/ui/textarea";
 import {
   Card,
@@ -33,11 +28,23 @@ import { v4 as uuidv4 } from "uuid";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Headphones,
+  Pencil,
   Send,
   CirclePlus,
   CircleMinus,
   CircleX,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { API_URL } from "@/config";
+
 import dateFormat, { masks } from "dateformat";
 const now = new Date();
 
@@ -49,6 +56,11 @@ const AlbumDetail = ({ access, navUser }) => {
   const [album, setAlbum] = useState();
   const [users, setUsers] = useState();
   const [comments, setComments] = useState();
+  // ||||-------------------------
+  // VVVV STATE FOR EDITED COMMENT
+  const [editComment, setEditComment] = useState("");
+  const navigate = useNavigate();
+  // ---------------------------
 
   //Checking if the album is in the collection
   const [isInCollection, setIsInCollection] = useState(false);
@@ -88,7 +100,7 @@ const AlbumDetail = ({ access, navUser }) => {
     async function getAlbumComments() {
       try {
         const { data } = await axios.get(
-          `http://localhost:5005/comments?albumId=${albumId}`
+          `${API_URL}/comments?albumId=${albumId}`
         );
         setComments(data);
         // console.log("got comments ;)", data);
@@ -100,7 +112,7 @@ const AlbumDetail = ({ access, navUser }) => {
     // JSON Server to get users infos
     async function getUsers() {
       try {
-        const { data } = await axios.get(`http://localhost:5005/users`);
+        const { data } = await axios.get(`${API_URL}/users`);
         setUsers(data);
         console.log("got user ;)");
       } catch (error) {
@@ -128,9 +140,7 @@ const AlbumDetail = ({ access, navUser }) => {
   // JSON Server to check if the album is in the collection
   async function checkIfInCOllection() {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5005/users/${currentUser.id}`
-      );
+      const { data } = await axios.get(`${API_URL}/users/${currentUser.id}`);
       const userCollection = data.collection || [];
       const albumExists = userCollection.some((album) => album.id === albumId);
       setIsInCollection(albumExists);
@@ -145,13 +155,11 @@ const AlbumDetail = ({ access, navUser }) => {
   // JSON Server to add album to collection
   async function addAlbumToCollection() {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5005/users/${currentUser.id}`
-      );
+      const { data } = await axios.get(`${API_URL}/users/${currentUser.id}`);
       const userCollection = data.collection || [];
 
       //Add album to the collection
-      await axios.patch(`http://localhost:5005/users/${currentUser.id}`, {
+      await axios.patch(`${API_URL}/users/${currentUser.id}`, {
         collection: [album, ...userCollection],
       });
       setIsInCollection(true);
@@ -163,16 +171,14 @@ const AlbumDetail = ({ access, navUser }) => {
   //JSON Server Remove album from collection
   async function removeAlbumFromCollection() {
     try {
-      const { data } = await axios.get(
-        `http://localhost:5005/users/${currentUser.id}`
-      );
+      const { data } = await axios.get(`${API_URL}/users/${currentUser.id}`);
       const userCollection = data.collection || [];
 
       // remove album from the collection
       const updatedCollection = userCollection.filter(
         (item) => item.id !== albumId
       );
-      await axios.patch(`http://localhost:5005/users/${currentUser.id}`, {
+      await axios.patch(`${API_URL}/users/${currentUser.id}`, {
         collection: updatedCollection,
       });
 
@@ -197,7 +203,7 @@ const AlbumDetail = ({ access, navUser }) => {
       };
       try {
         const { data } = await axios.post(
-          "http://localhost:5005/comments",
+          `${API_URL}/comments`,
           newCommentData
         );
         setComments([data, ...comments]);
@@ -211,16 +217,14 @@ const AlbumDetail = ({ access, navUser }) => {
   //handle delete a comment
   async function handleDeleteComment(commentId) {
     try {
-      const { data } = await axios.delete(
-        `http://localhost:5005/comments/${commentId}`
-      );
+      const { data } = await axios.delete(`${API_URL}/comments/${commentId}`);
       console.log("comment deleted");
     } catch (error) {
       console.log("delete comment", error);
     }
     setComments(
       comments.filter((comment) => {
-        if (comment.id !== commentId) {
+        if (comment.id != commentId) {
           return true;
         } else {
           return false;
@@ -228,7 +232,46 @@ const AlbumDetail = ({ access, navUser }) => {
       })
     );
   }
+  // ||||------------------------------
+  // VVVV   EDIT COMMENT -------------
 
+  async function handleEditComment(commentId) {
+    try {
+      const { data } = await axios(`${API_URL}/comments/${commentId}`);
+    } catch (error) {
+      console.log("delete comment", error);
+    }
+  }
+
+  function handleUpdate(comment) {
+    let update = {
+      id: comment.id,
+      comment: editComment,
+      created: comment.created,
+      albumId: comment.albumId,
+      userId: comment.userId,
+    };
+
+    let updateArray = comments.map((coms) => {
+      if (coms.id == update.id) {
+        return update;
+      } else {
+        return coms;
+      }
+    });
+    setComments(updateArray);
+    async function updateDBJson() {
+      try {
+        let response = await axios.patch(
+          `${API_URL}/comments/${update.id}`,
+          update
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    updateDBJson();
+  }
   //////////------DETAIL PAGE--------/////
 
   if (!album) {
@@ -236,13 +279,15 @@ const AlbumDetail = ({ access, navUser }) => {
   }
   return (
     <div id="album-detail-id" className="album-detail">
-      {/* Album presentation */}
+      {/* -----------------------Album presentation---------------------*/}
       <div className="header-container">
         <img src={album.images[1].url} alt={album.name} />
         <div className="header-title">
           <h1>{album.name}</h1>
           <h2>{album.artists[0].name} </h2>
           <h5>Label: {album.label}</h5>
+          {/* ------------------------------------------------------ */}
+          {/* -----------------------Link to Spotify---------------------*/}
           <div className="btn-container">
             <Link
               to={album.external_urls.spotify}
@@ -254,6 +299,8 @@ const AlbumDetail = ({ access, navUser }) => {
                 Listen on Spotify
               </Button>
             </Link>
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Add the albul to collection btn---------------------*/}
             <Button
               className="btn"
               variant={isInCollection ? "secondary" : ""}
@@ -271,13 +318,19 @@ const AlbumDetail = ({ access, navUser }) => {
           </div>
         </div>
       </div>
+      {/* --------------------------------------------------------------------------- */}
+      {/* -----------------------Tab container---------------------*/}
       <div className="tabs">
         <Tabs defaultValue="tracks" className="w-full">
           <TabsList>
             <TabsTrigger value="tracks">Tracklist</TabsTrigger>
             <TabsTrigger value="comments">Comments</TabsTrigger>
           </TabsList>
+          {/* --------------------------------------------------------------------------- */}
+          {/* -----------------------Tracks Table TAB---------------------*/}
           <TabsContent value="tracks">
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Tracks Table---------------------*/}
             <Table>
               <TableHeader>
                 <TableRow>
@@ -304,8 +357,12 @@ const AlbumDetail = ({ access, navUser }) => {
                 ))}
               </TableBody>
             </Table>
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Comments Tab---------------------*/}
           </TabsContent>
           <TabsContent value="comments">
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------Comment Input container---------------------*/}
             <h4>Add a comment...</h4>
             <div className="comment-box">
               <div className="text-area">
@@ -320,7 +377,10 @@ const AlbumDetail = ({ access, navUser }) => {
                 Send
               </Button>
             </div>
+            {/* --------------------------------------------------------------------------- */}
+            {/* -----------------------All comments container---------------------*/}
             <div className="all-comments">
+              {/* -----------------------map over the array of comments---------------------*/}
               {comments &&
                 users &&
                 comments.map((comment) => {
@@ -329,6 +389,8 @@ const AlbumDetail = ({ access, navUser }) => {
                       <Card className="comment-card">
                         <CardHeader>
                           <CardTitle className="flex items-center justify-between ">
+                            {/* --------------------------------------------------------------------------- */}
+                            {/* -----------------------avatar, name, date and delete btn inline---------------------*/}
                             <div className="flex items-center">
                               <Avatar>
                                 <AvatarImage
@@ -344,20 +406,72 @@ const AlbumDetail = ({ access, navUser }) => {
                                 </span>
                               </div>
                             </div>
-                            <Button
-                              variant="destructive"
-                              onClick={() => {
-                                handleDeleteComment(comment.id);
-                              }}
-                            >
-                              <CircleX />
-                            </Button>
+                            <div className="flex flex-col h-6">
+                              {/* <<<<<<<<<< @Bruno-Franco : You can add the Dialog here for edit(https://ui.shadcn.com/docs/components/dialog)----------- */}
+
+                              <Button
+                                className="mb-2"
+                                variant="destructive"
+                                onClick={() => {
+                                  handleDeleteComment(comment.id);
+                                }}
+                              >
+                                <CircleX />
+                              </Button>
+                              {/* ---- EDIT COMMENT START BELLOW ----- */}
+                              <Dialog>
+                                <DialogTrigger>
+                                  <Button
+                                    className="border shadow"
+                                    variant="ghost"
+                                    onClick={() => {
+                                      setEditComment(comment);
+                                      handleEditComment(comment.id);
+                                    }}
+                                  >
+                                    <Pencil />
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>
+                                      Edit Your Commment Bellow!
+                                    </DialogTitle>
+                                    <DialogDescription>
+                                      <Textarea
+                                        value={editComment.comment}
+                                        onChange={(e) => {
+                                          setEditComment(e.target.value);
+                                        }}
+                                      />
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <DialogFooter>
+                                    <Button
+                                      className="border shadow"
+                                      variant="ghost"
+                                      onClick={() => {
+                                        // |||
+                                        // VVV UPDATE VAL
+                                        handleUpdate(comment);
+                                        navigate(`/album/${albumId}`);
+                                      }}
+                                    >
+                                      <Send />
+                                    </Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
+                              {/* ------------   END OF EDIT COMMENT ------ */}
+                            </div>
                           </CardTitle>
-                          <CardDescription></CardDescription>
                         </CardHeader>
+                        {/* --------------------------------------------------------------------------- */}
+                        {/* -----------------------text comment--------------------*/}
                         <CardContent>
                           <p>{comment.comment}</p>
                         </CardContent>
+                        {/* --------------------------------------------------------------------------- */}
                       </Card>
                     </div>
                   );

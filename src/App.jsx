@@ -11,7 +11,7 @@ import AlbumDetail from "./pages/AlbumDetail";
 import MyAlbums from "./pages/MyAlbums";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "@/components/Theme-provider";
-
+import { API_URL } from "./config";
 // ||||---------------------------
 // VVVV   IMPORT THE KEYS FROM SPOTIFY STORED IN .ENV
 let clientId = import.meta.env.VITE_CLIENT_ID;
@@ -39,7 +39,8 @@ function App() {
     // VVVV CALL SERVER TO GET USER PROFILE
     async function getNavUserId() {
       try {
-        let response = await fetch(`http://localhost:5005/users`);
+        let response = await fetch(`${API_URL}/users`);
+
         let data = await response.json();
         let navUserId = data.find((user) =>
           strUserName === user.name ? user.id : null
@@ -67,7 +68,7 @@ function App() {
         const response = await fetch(url, getParams);
         const data = await response.json();
         setAccess(data);
-        const responseUser = await fetch("http://localhost:5005/users/1");
+        const responseUser = await fetch(`${API_URL}/users/1`);
         const dataUser = await responseUser.json();
         setNavUser(dataUser);
       } catch (error) {

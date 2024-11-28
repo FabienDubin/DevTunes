@@ -25,6 +25,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { API_URL } from "@/config";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -36,7 +37,7 @@ const Tests = () => {
   useEffect(() => {
     async function getAllUsers() {
       try {
-        const { data } = await axios.get("http://localhost:5005/users/");
+        const { data } = await axios.get(`${API_URL}/users/`);
         console.log("got data ;)");
         setUsers(data);
       } catch (error) {
@@ -54,9 +55,7 @@ const Tests = () => {
   useEffect(() => {
     async function getUserRecords() {
       try {
-        const { data } = await axios.get(
-          `http://localhost:5005/users/${userId}`
-        );
+        const { data } = await axios.get(`${API_URL}/users/${userId}`);
         setRecords(data.collection);
         console.log("got user data ;)", data);
       } catch (error) {

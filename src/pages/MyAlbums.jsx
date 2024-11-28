@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../pages/MyAlbums.css";
+import { API_URL } from "@/config";
 
 const MyAlbums = ({ navUser, artist }) => {
   const [userAlbums, setUserAlbums] = useState([]);
@@ -17,9 +18,7 @@ const MyAlbums = ({ navUser, artist }) => {
   useEffect(() => {
     async function getCollection() {
       try {
-        const { data } = await axios.get(
-          `http://localhost:5005/users/${userId}`
-        );
+        const { data } = await axios.get(`${API_URL}/users/${userId}`);
         setUserAlbums(data.collection);
         console.log(data.collection);
       } catch (error) {

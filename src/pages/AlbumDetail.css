@@ -6,8 +6,7 @@ body {
   height: 85vh;
   overflow: scroll;
 }
-.album-detail {
-}
+
 .album-detail .header-container {
   margin: 10px 50px;
   padding: 20px 0;
