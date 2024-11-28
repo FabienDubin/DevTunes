@@ -162,6 +162,7 @@ const AlbumDetail = ({ access, navUser }) => {
       await axios.patch(`${API_URL}/users/${currentUser.id}`, {
         collection: [album, ...userCollection],
       });
+      console.log("album add", album);
       setIsInCollection(true);
     } catch (error) {
       console.log(error);
@@ -345,7 +346,7 @@ const AlbumDetail = ({ access, navUser }) => {
               </TableHeader>
               <TableBody>
                 {album.tracks.items.map((track) => (
-                  <TableRow key={track.track_number}>
+                  <TableRow key={track.id}>
                     <TableCell className="font-medium">
                       {track.track_number}
                     </TableCell>
