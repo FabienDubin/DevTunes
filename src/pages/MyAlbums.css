@@ -1,5 +1,6 @@
 .myalbum-container {
   min-height: 85vh;
+  overflow: scroll;
 }
 
 .myalbumspage {

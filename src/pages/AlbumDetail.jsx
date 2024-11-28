@@ -235,7 +235,7 @@ const AlbumDetail = ({ access, navUser }) => {
     return <div>Loading album information...</div>;
   }
   return (
-    <div className="album-detail">
+    <div id="album-detail-id" className="album-detail">
       {/* Album presentation */}
       <div className="header-container">
         <img src={album.images[1].url} alt={album.name} />

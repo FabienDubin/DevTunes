@@ -1,6 +1,10 @@
-.search-container {
-  height: 80vh;
+#serch-album {
+  height: 85vh;
+  overflow: scroll;
 }
+/* .search-container {
+  height: 80vh;
+} */
 
 .launchbagde {
   cursor: default;
